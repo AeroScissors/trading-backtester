@@ -1,0 +1,46 @@
+/* src/features/IndicatorBuilder.css */
+
+.indicator-form {
+  max-width: 340px;
+  margin: 0 auto;
+}
+
+.indicator-form label {
+  display: block;
+  margin-bottom: 12px;
+}
+
+.indicator-label {
+  color: #bbb;
+  display: block;
+  margin-bottom: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.indicator-select,
+.indicator-input {
+  width: 100%;
+  padding: 0.65rem;
+  border-radius: 6px;
+  background: #191927;
+  color: #f3f6f8;
+  border: 1.5px solid #23232d;
+  font-size: 1rem;
+  margin-bottom: 4px;
+  margin-top: 0px;
+  transition: border 0.13s, box-shadow 0.13s;
+  box-sizing: border-box;
+}
+
+.indicator-select:focus,
+.indicator-input:focus {
+  outline: none;
+  border: 1.5px solid #00d2b8;
+  box-shadow: 0 0 0 2px rgba(0, 210, 184, 0.15);
+}
+
+.indicator-form .btn {
+  width: 100%;
+  margin-top: 14px;
+}

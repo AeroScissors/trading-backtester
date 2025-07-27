@@ -1,0 +1,33 @@
+/* src/components/Card.css */
+
+.card {
+  background: #23232d;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px 0 rgb(0 0 0 / 7%);
+  margin-bottom: 2rem;
+  padding: 0 0 1.7rem 0;
+}
+.card-title {
+  padding: 1.3rem 2rem 0.5rem 2rem;
+  font-size: 1.13rem;
+  font-weight: 600;
+  color: #63ffc4;
+  display: flex;
+  align-items: center;
+}
+.card-icon {
+  font-size: 1.4em;
+  margin-right: 0.85rem;
+}
+.card-content {
+  font-size: 1.03rem;
+  color: #f8f8fa;
+  padding: 0 2rem;
+}
+.card-footer {
+  margin-top: 1rem;
+  border-top: 1px solid #353544;
+  padding: 0.8rem 2rem 0.2rem;
+  font-size: .98rem;
+  color: #ccc;
+}

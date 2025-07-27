@@ -1,0 +1,159 @@
+trading-backtester/
+├── main_pipeline.py  
+│
+├── .pytest_cache/
+│
+├── api/
+│   └── (backend API related files - e.g., Flask/FastAPI endpoints, schemas)
+│
+├── backtester/
+│   ├── __pycache__/
+│   ├── __init__.py
+│   ├── data/
+│   │   ├── __pycache__/
+│   │   ├── connectors/
+│   │   │   ├── __pycache__/
+│   │   │   ├── __init__.py
+│   │   │   ├── csv_connector.py
+│   │   │   ├── yfinance_connector.py
+│   │   ├── __init__.py
+│   │   ├── data_handler.py
+│   ├── indicators/
+│   │   ├── __pycache__/
+│   │   ├── __init__.py
+│   │   ├── base.py
+│   │   ├── builtins.py
+│   │   ├── registry.py
+│   │   ├── How to add a new indicator.txt
+│   │   ├── user_defined/
+│   │       ├── __pycache__/
+│   │       ├── __init__.py
+│   │       └── my_custom_indicator.py
+│   ├── optimizer/
+│   │   ├── __pycache__/
+│   │   ├── __init__.py
+│   │   ├── grid_search.py                # GridSearchOptimizer class
+│   │   ├── run_grid_search.py            # Runs optimization using concrete strategy
+│   ├── results/
+│   │   ├── __pycache__/
+│   │   ├── __init__.py
+│   │   ├── metrics.py                    # Metrics functions with safe pandas/numpy usage
+│   │   ├── reference.txt
+│   │   ├── report.py
+│   │   ├── trade_logger.py
+│   │   ├── visualizer.py
+│   │   └── outputs/                     # Folder must exist before saving outputs
+│   │       ├── __init__.py
+│   │       ├── grid_search_results.csv
+│   │       ├── best_params.csv
+│   │       ├── equity_curve.png
+│   │       ├── trade_marks.png
+│   │       ├── metrics.csv
+│   │       └── backtest_report.pdf
+│   ├── strategy/
+│   │   ├── __pycache__/
+│   │   ├── __init__.py
+│   │   ├── base_strategy.py              # Abstract base class
+│   │   ├── backtester_engine.py
+│   │   ├── moving_average_crossover.py
+│   │   ├── my_strategy.py                # Concrete strategy used in optimization
+│
+├── data/
+│   ├── .ipynb_checkpoints/
+│   ├── cleaned_csv_data.csv
+│   ├── cleaned_yf_data.csv
+│   ├── reliance_candles.csv.csv
+│   └── Untitled.ipynb
+│
+├── docs/
+│   └── (documentation files/examples)
+│
+├── frontend/
+│   ├── my-backtest-front/
+│   │   ├── node_modules/
+│   │   ├── public/
+│   │   │   ├── favicon.ico
+│   │   │   └── index.html
+│   │   ├── src/
+│   │   │   ├── assets/                  # Images, SVGs, and other static resources
+│   │   │   │   └── (logos, icons, etc.)
+│   │   │   ├── api/                     # Backend API utilities (REST client helpers)
+│   │   │   │   └── apiClient.js
+│   │   │   ├── components/              # Reusable UI components
+│   │   │   │   ├── Card.jsx             # Generic card container component
+│   │   │   │   ├── Card.css
+│   │   │   │   ├── EquityCurve.jsx      # Chart placeholder or real component
+│   │   │   │   ├── ResultsTable.jsx     # Metrics/results table component
+│   │   │   │   ├── TradeMarksChart.jsx  # Trade marks chart placeholder
+│   │   │   │   ├── Breadcrumbs.jsx      # Breadcrumb navigation bar component
+│   │   │   │   ├── Breadcrumbs.css
+│   │   │   │   ├── Sidebar.jsx          # Fixed sidebar navigation
+│   │   │   │   ├── Sidebar.css
+│   │   │   │   └── (other reusable components)
+│   │   │   ├── features/                # Specific feature modules
+│   │   │   │   ├── DataInput/
+│   │   │   │   │   └── DataUpload.jsx   # Data upload and preview UI
+│   │   │   │   ├── StrategyEditor/
+│   │   │   │   │   └── StrategyEditor.jsx # Strategy form/code editor toggle UI
+│   │   │   │   ├── IndicatorBuilder/
+│   │   │   │   │   └── IndicatorBuilder.jsx # Indicator list and code input
+│   │   │   │   ├── ResultsViewer/
+│   │   │   │   │   ├── BestParamsTable.jsx  # Render best params from CSV
+│   │   │   │   │   ├── ParamSurfaceChart.jsx # Surface plot component
+│   │   │   │   │   └── index.jsx             # Main ResultsViewer composite page
+│   │   │   ├── hooks/                   # React custom hooks (e.g., API calls)
+│   │   │   │   └── useApiFetch.js       # Example API fetching hook
+│   │   │   ├── pages/                   # Optional page-level wrappers/routes
+│   │   │   │   └── ResultsViewer.jsx   # Optional page wrapper for result screen
+│   │   │   ├── styles/                  # CSS and style modules
+│   │   │   │   ├── App.css
+│   │   │   │   ├── Card.css
+│   │   │   │   ├── Sidebar.css
+│   │   │   │   ├── Breadcrumbs.css
+│   │   │   │   └── (other CSS files)
+│   │   │   ├── App.jsx                  # Root React component with sidebar and routing
+│   │   │   ├── main.jsx                 # React DOM entry point
+│   │   │   ├── index.css                # Global base styles and resets
+│   │   │   └── vite-env.d.ts            # TypeScript type definitions for Vite (optional)
+│   │   ├── .gitignore
+│   │   ├── eslint.config.js             # ESLint configuration
+│   │   ├── index.html                   # HTML entry file
+│   │   ├── package.json                 # NPM dependencies and scripts
+│   │   ├── package-lock.json
+│   │   ├── README.md
+│   │   └── vite.config.js               # Vite build configuration
+│
+├── results/
+│   ├── __pycache__/
+│   ├── outputs/                         # Final outputs folder (must exist before saving)
+│   ├── __init__.py
+│
+├── scripts/
+│   ├── __pycache__/
+│   ├── outputs/
+│   ├── __init__.py
+│   ├── tempCodeRunnerFile.py
+│   ├── test_Core_Features.py
+│   ├── test_data_access.py
+│   ├── test_indicator_library.py
+│   ├── test_strategy_engine.py
+│
+├── tests/
+│   ├── __init__.py
+│   ├── indicators/
+│   ├── data/
+│   ├── strategy/
+│   ├── results/
+│   │   ├── test_metrics.py
+│   │   ├── test_visualizer.py
+│   │   └── test_report.py
+│
+├── ui/                                  # (Potential future UI code, e.g., Streamlit/Dash wrappers)
+│
+├── venv/
+│
+├── .gitignore
+├── file management.txt                  # This file listing & management overview
+├── README.md
+├── requirements.txt
+├── setup.py

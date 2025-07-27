@@ -1,0 +1,85 @@
+1. Modular Architecture
+File structure organized for clarity: backtester/ (Python computation layer), frontend/ (React-based results dashboard), data/ (cleaned historic datasets), tests/ (unit/integration tests), scripts/ (utility and runner scripts).
+
+2. OHLCV Data Ingestion
+The pipeline now works with a single, standardized CSV file containing:
+date, open, high, low, close, volume
+
+All analytics (returns, metrics, charts) are derived automatically from the close column.
+
+3. Performance Metrics Engine
+Key statistics computed:
+
+Sharpe ratio
+
+Max drawdown
+
+Annualized return
+
+Volatility
+
+Win/loss statistics (requires valid trade list; placeholder if no trades)
+
+Functions live in:
+backtester/results/metrics.py
+
+4. Visualization System
+Equity curve and price charts auto-generated and saved as PNGs.
+
+Supports plotting trade entry/exit marks if trade data exists.
+
+Code:
+backtester/results/visualizer.py
+
+5. Reporting/Export
+Outputs:
+
+metrics.csv (tabular summary)
+
+backtest_report.pdf (summary + embedded charts)
+
+Chart images (equity_curve.png, trade_marks.png)
+
+Logic:
+backtester/results/report.py
+
+6. Unified Orchestration Script
+Main workflow (run_all.py or test_Core_Features.py):
+
+Loads OHLCV from /data/cleaned_csv_data/ohlcv.csv
+
+Runs all analysis, outputs results to /backtester/results/outputs/ or /scripts/outputs/
+
+All data handling and computation in one reproducible command
+
+7. Frontend Integration
+(Planned) React components to display:
+
+Equity curve chart
+
+Trades/price chart
+
+Metrics/results table
+
+File downloads for CSV/PDF
+
+Location:
+/frontend/src/components/ and /frontend/src/features/ResultsViewer/
+
+8. Unit Test Coverage
+Standard pytest-compatible unit tests cover:
+
+Metrics
+
+Visualization
+
+Reporting
+
+Scripted integration end-to-end
+
+💡 Current Usage
+Place real, cleaned OHLCV data in /data/cleaned_csv_data/ohlcv.csv.
+
+Run the orchestrator script to generate all analytics and outputs.
+
+Results (charts, PDF, metrics) appear in /outputs/ for use in frontend or manual inspection.

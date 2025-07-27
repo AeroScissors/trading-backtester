@@ -1,0 +1,127 @@
+How to Add a New Indicator
+
+
+1. Adding a Built-in Indicator
+A built-in indicator is part of the platform itself—examples: EMA, ATR, Bollinger Bands.
+
+a. Define the Indicator Class
+Open backtester/indicators/builtins.py
+
+At the bottom (or in the appropriate section), add a new class inheriting from IndicatorBase.
+
+Example:
+
+python
+# backtester/indicators/builtins.py
+
+from .base import IndicatorBase
+
+class EMA(IndicatorBase):
+    name = "EMA"
+
+    def compute(self, data):
+        window = self.params.get('window', 10)
+        return data.ewm(span=window).mean()
+b. Register the Indicator
+Open backtester/indicators/registry.py
+
+Import your new class and call register_indicator with it.
+
+Example:
+
+python
+# backtester/indicators/registry.py
+
+from .builtins import EMA       # (Add this line near other imports)
+register_indicator(EMA)         # (Add this line after other registrations)
+c. Use the Built-in Indicator
+Retrieve and use from anywhere after import:
+
+python
+from backtester.indicators import registry
+
+EMA = registry.get_indicator('EMA')
+ema_result = EMA(window=10).compute(data_series)
+
+
+
+2. Adding a User-Defined (Custom) Indicator
+A user-defined indicator is a script written and loaded at runtime by the user, not part of the core module.
+
+a. Create the Python File
+Go to backtester/indicators/user_defined/
+
+Create a new file (e.g., my_custom_indicator.py)
+
+Write your class, inheriting from IndicatorBase and setting a name.
+
+Template:
+
+python
+# backtester/indicators/user_defined/my_custom_indicator.py
+
+from backtester.indicators.base import IndicatorBase
+
+class MyCustom(IndicatorBase):
+    name = "MyCustom"
+
+    def compute(self, data):
+        # Your calculation here:
+        return data.rolling(window=7).max()   # Example: rolling 7-day maximum
+b. Register the User-Defined Indicator
+Use the load_user_indicator function to dynamically register your indicator.
+Example usage in your script:
+
+python
+from backtester.indicators import registry
+
+indicator_path = 'backtester/indicators/user_defined/my_custom_indicator.py'
+indicator_name = registry.load_user_indicator(indicator_path)
+c. Use the User-Defined Indicator
+Now you can retrieve and use it just like a built-in:
+python
+MyCustom = registry.get_indicator('MyCustom')
+my_result = MyCustom(window=7).compute(data_series)
+
+
+3. General Notes (Built-in and User-Defined)
+Every indicator must subclass IndicatorBase and define a unique class attribute name.
+If you add a built-in, it must be imported and registered in registry.py.
+For user-defined indicators, you need to use load_user_indicator() function and pass the path to your .py file.
+The .compute(data) method must accept a pandas.Series (or compatible DataFrame) and return the indicator’s result.
+For parameters, access them via self.params.get('param_name', default_value) inside your indicator class.
+
+
+
+4. Example: Full User-Defined Indicator Lifecycle
+Save your custom indicator code in backtester/indicators/user_defined/my_indicator.py.
+
+In your test or main script:
+
+python
+from backtester.indicators import registry
+
+# Register the indicator dynamically
+indicator_name = registry.load_user_indicator(
+    'backtester/indicators/user_defined/my_indicator.py'
+)
+
+# Get the class
+MyInd = registry.get_indicator(indicator_name)
+
+# Use the indicator
+output = MyInd(window=7).compute(price_series)
+
+
+
+
+5. Troubleshooting
+If .get_indicator('YourName') returns None, check:
+
+The class’s name attribute matches the one you’re using.
+
+Registration (register_indicator()) has occurred (for built-ins).
+
+If there are errors importing, ensure the file path is correct and there are no typos.
+
+If errors occur during calculation, check your compute() method for correct pandas logic and parameter usage.
